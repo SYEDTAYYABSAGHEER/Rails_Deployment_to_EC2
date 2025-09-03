@@ -104,10 +104,53 @@ sudo apt-get install git
 - gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 - curl -sSL https://get.rvm.io | bash -s stable
 - source ~/.rvm/scripts/rvm
-- rvm install 2.5.1
-- rvm use 2.5.1 --default
+- rvm install 3.3.0
+- rvm use 3.3.0 --default
 - ruby -v
 - gem install bundler #install bundler
+```
+
+## Insatll Redis Server
+```
+sudo add-apt-repository ppa:chris-lea/redis-server
+```
+
+## Insatll Node
+```
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+## Install Yarn
+```
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+```
+
+## Other Dependenices
+```
+ sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev dirmngr gnupg apt-transport-https ca-certificates redis-server redis-tools nodejs yarn
+
+```
+
+## Install PostgreSQL
+```
+# setup postgresql
+- sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
+- wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
+- sudo apt-get update
+- sudo apt-get install postgresql-common
+- sudo apt-get install postgresql-16 libpq-dev
+```
+
+## Create Positgresl user
+```
+- sudo -su postgres
+- createuser --pwprompt deploy
+
+```
+### Create database in postgres
+```
+- createdb -O deploy name_production_db
 ```
 
 ## Installing Nginx
@@ -115,3 +158,4 @@ sudo apt-get install git
 - sudo apt-get install nginx
 - sudo nano /etc/nginx/sites-available/default #to configure default site
 ```
+
