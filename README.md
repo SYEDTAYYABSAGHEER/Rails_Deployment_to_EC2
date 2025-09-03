@@ -153,9 +153,66 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 - createdb -O deploy name_production_db
 ```
 
+## Create files required by capistrano
+```
+- mkdir <application name>
+- mkdir -p <application name>/shared/config
+- nano <application name>/shared/config/database.yml
+
+#for rails 5.2 'master.key' file is used for secret key
+- nano <application name>/shared/config/master.key
+- add key from master.key of your application to this file
+  eg: da54dd7f691dd9d8707c3f67ec9d076f
+#for rails lower versions 'application.yml' or 'secrets.yml' is used for secret key
+- nano <application name>/shared/config/application.yml
+  OR
+- nano <application name>/shared/config/secrets.yml
+- add SECRET_KEY_BASE from your application to this file (or you can generate your own secret key base)
+  SECRET_KEY_BASE: "8a2ff74119cb2b8f14a85dd6e213fa24d8540fc34dcaa7ef8a35c246ae452bfa8702767d19086461ac911e1435481c22663fbd65c97f21f6a91b3fce7687ce63"
+```
+
+### 🔑 How to generate credentials.yml.enc and master.key
+```
+EDITOR="nano" bin/rails credentials:edit
+```
+
 ## Installing Nginx
 ```
 - sudo apt-get install nginx
 - sudo nano /etc/nginx/sites-available/default #to configure default site
 ```
 
+
+
+### Rails application setup for capistrano
+
+```
+#configuring capistrano
+#add this to gemfile
+group :development do
+  gem 'capistrano'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm'
+end
+- bundle install
+
+#create configuration files for capistrano
+- bundle exec cap install
+  #this command will create
+  config/deploy.rb
+  config/deploy/production.rb
+  config/deploy/staging.rb
+
+#add these line to capfile
+require 'capistrano/bundler'
+require 'capistrano/rvm'
+require 'capistrano/rails/assets' # for asset handling add
+require 'capistrano/rails/migrations' # for running migrations
+require 'capistrano/puma'
+install_plugin Capistrano::Puma  # Default puma tasks
+
+#upload puma config  
+- cap production puma:config
+```
