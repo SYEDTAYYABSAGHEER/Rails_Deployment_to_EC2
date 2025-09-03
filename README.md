@@ -41,3 +41,26 @@
   this will replace your Public IP with Elastic IP (& now this IP is used)
 ```
 
+## CHange the Permssion of Pem file
+```
+- chmod 400 file.pem
+```
+
+## Connect to the Server
+```
+- ssh -i "<Path of your pem file>" ubuntu@<Public IP Address>
+```
+### Authneticity of the Host
+```
+- Are you sure you want to continue connecting (yes/no/[fingerprint])?
+-- enter yes
+```
+### Explanation
+
+- SSH is asking: *"Do you trust this server?"*
+- The fingerprint is a unique hash of the server’s public key.
+- If you type `yes`, SSH saves this fingerprint into a file called `~/.ssh/known_hosts`.
+- Next time you connect, SSH will check the fingerprint again to make sure you’re connecting to the same server and not an imposter (**prevents man-in-the-middle attacks**).
+
+
+
