@@ -28,3 +28,16 @@
   find 'Public IP' from 'Description'
 
   ```
+
+## Setup Elastic IP
+
+```
+- you can generate an Elastic IP from 'Network & Security' tab
+- click 'Allocate new address'
+- then click 'Allocate', this will generate an Elastic IP
+- click 'Close', this will redirect you to Elastic IP Dashboard
+- select you Elastic IP & on right click select 'Associate address'
+- choose you instance (whom you want to associate) & click 'Associate'
+  this will replace your Public IP with Elastic IP (& now this IP is used)
+```
+
