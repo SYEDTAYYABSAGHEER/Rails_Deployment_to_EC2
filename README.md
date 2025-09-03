@@ -64,3 +64,54 @@
 
 
 
+
+## Upgrade Existing Package of Server
+```
+- sudo apt-get update && sudo apt-get -y upgrade 
+```
+
+## Create Deploy User
+```
+sudo adduser deploy
+```
+### Set the Password
+
+### Provide Sudo privilege
+```
+sudo adduser deploy sudo 
+```
+
+## Generating ssh-key
+
+```
+- su - deploy
+- ssh-keygen #do not set a passphrase for the key
+- cat .ssh/id_rsa.pub
+- copy the ssh-key & set it as your deploy key on your repository(project on bitbucket or github)
+- copy your system public ssh-key & paste it into the following file on your instance as deploy user
+  nano .ssh/authorized_keys #save & exit
+```
+
+## Installing GIT
+```
+sudo apt-get install git
+```
+
+## Installing ruby
+```
+- su - deploy
+- sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev
+- gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+- curl -sSL https://get.rvm.io | bash -s stable
+- source ~/.rvm/scripts/rvm
+- rvm install 2.5.1
+- rvm use 2.5.1 --default
+- ruby -v
+- gem install bundler #install bundler
+```
+
+## Installing Nginx
+```
+- sudo apt-get install nginx
+- sudo nano /etc/nginx/sites-available/default #to configure default site
+```
